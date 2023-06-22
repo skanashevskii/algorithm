@@ -1,4 +1,4 @@
-package com.example.algorithm;
+package com.example.algorithm.service;
 
 public interface StringList {
     //Alt+Enter - > Implement Interface

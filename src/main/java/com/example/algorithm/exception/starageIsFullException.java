@@ -1,4 +1,4 @@
-package com.example.algorithm;
+package com.example.algorithm.exception;
 
 public class starageIsFullException extends RuntimeException {
     public starageIsFullException() {
