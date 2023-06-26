@@ -1,4 +1,8 @@
-package com.example.algorithm;
+package com.example.algorithm.service;
+
+import com.example.algorithm.exception.NullItemException;
+import com.example.algorithm.exception.invalideIndexException;
+import com.example.algorithm.exception.starageIsFullException;
 
 import java.util.Arrays;
 
