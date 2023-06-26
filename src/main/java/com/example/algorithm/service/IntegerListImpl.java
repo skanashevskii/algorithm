@@ -2,14 +2,14 @@ package com.example.algorithm.service;
 
 import com.example.algorithm.exception.NullItemException;
 import com.example.algorithm.exception.invalideIndexException;
-import com.example.algorithm.exception.starageIsFullException;
 
 import java.util.Arrays;
+
 
 public class IntegerListImpl implements IntegerList {
 
     //массив для хранения строк
-    private final Integer[] storage;
+    private Integer[] storage;
 
     //поле для хранения реального размера листа
     private int size;
@@ -27,7 +27,7 @@ public class IntegerListImpl implements IntegerList {
     //добавление в конец
     @Override
     public Integer add(Integer item) {
-        validateSize();
+        validateSizeAndGrow();
         validateItem(item);
         storage[size++] = item;
         return item;
@@ -36,7 +36,7 @@ public class IntegerListImpl implements IntegerList {
     //добавление по индексу
     @Override
     public Integer add(int index, Integer item) {
-        validateSize();
+        validateSizeAndGrow();
         validateItem(item);
         validateIndex(index);
         if (index == size) {
@@ -162,10 +162,11 @@ public class IntegerListImpl implements IntegerList {
         }
     }
 
-    //проверка на размер хранилища
-    private void validateSize() {
+    //проверка на размер хранилища и при заполнении увеличение
+    //вызовом метода grow(),где прописана логика увеличения
+    private void validateSizeAndGrow() {
         if (size == storage.length) {
-            throw new starageIsFullException();
+            grow();
         }
     }
 
@@ -177,7 +178,7 @@ public class IntegerListImpl implements IntegerList {
     }
 
     //метод сортировки массива вставкой
-    private void sort(Integer[] arr) {
+ /*   private void sort(Integer[] arr) {
         for (int i = 1; i < arr.length; i++) {
             int temp = arr[i];
             int j = i;
@@ -187,6 +188,45 @@ public class IntegerListImpl implements IntegerList {
             }
             arr[j] = temp;
         }
+    } */
+    //метод быстрой сортировки
+    private void sort(Integer[] arr) {
+     quickSort(arr,0,arr.length - 1);
+    }
+
+
+    /**
+     * рекурсивный метод сортировки
+     * @param arr - массив для сортировки
+     * @param begin - начальный индекс
+     * @param end - конечный индекс
+     */
+    private void quickSort(Integer[] arr, int begin, int end){
+        if (begin < end){
+            int partitionIndex = partition(arr,begin,end);
+
+            quickSort(arr,begin,partitionIndex-1);
+            quickSort(arr,partitionIndex+1,end);
+        }
+    }
+
+    private int partition(Integer[] arr, int begin, int end) {
+        int pivot = arr[end];
+        int i = (begin-1);
+        for (int j = begin; j < end; j++) {
+            if (arr[j] <= pivot){
+                i++;
+                swapElements(arr,i,j);
+            }
+        }
+        swapElements(arr,i + 1, end);
+        return i + 1;
+    }
+
+    private void swapElements(Integer[] arr,int i1, int i2){
+        int temp = arr[i1];
+        arr[i1] = arr[i2];
+        arr[i2] = temp;
     }
 
     //бинарный поиск
@@ -208,6 +248,10 @@ public class IntegerListImpl implements IntegerList {
             }
         }
         return false;
+    }
+    //метод увеличения массива
+    private void grow(){
+        storage = Arrays.copyOf(storage,size+size/2);
     }
 
 }

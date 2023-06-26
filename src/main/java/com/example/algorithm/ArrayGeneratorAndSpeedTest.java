@@ -6,11 +6,10 @@ import java.util.Random;
 
 public class ArrayGeneratorAndSpeedTest {
         public static void main(String[] args) {
-            int[] array = generateArray(100000);
+            int[] array = generateArray(100_000);
             int[] arrayCopy1 = Arrays.copyOf(array,array.length);
             int[] arrayCopy2 = Arrays.copyOf(array,array.length);
             int[] arrayCopy3 = Arrays.copyOf(array,array.length);
-            int[] arrayCopy4 = Arrays.copyOf(array,array.length);
 
             long startTime, endTime, executionTime;
             startTime = System.currentTimeMillis();
@@ -43,9 +42,9 @@ public class ArrayGeneratorAndSpeedTest {
             }
             return array;
         }
-    /*Метод swapElement используется для обмена элементов массива.
-    Он принимает массив и два индекса и меняет значения элементов с соответствующими индексами.*/
-    private static void swapElements(int[] arr, int indexA, int indexB) {
+    //Метод swapElement используется для обмена элементов массива.
+    //Он принимает массив и два индекса и меняет значения элементов с соответствующими индексами.
+    public static void swapElements(int[] arr, int indexA, int indexB) {
         int tmp = arr[indexA];
         arr[indexA] = arr[indexB];
         arr[indexB] = tmp;
@@ -78,8 +77,8 @@ public class ArrayGeneratorAndSpeedTest {
         }
 
         int middle = arr.length / 2;
-        int[] left = new int[middle];
-        int[] right = new int[arr.length - middle];
+        int [] left = new int[middle];
+        int [] right = new int[arr.length - middle];
 
         // Заполнение левого и правого подмассивов
         for (int i = 0; i < middle; i++) {
@@ -123,8 +122,9 @@ public class ArrayGeneratorAndSpeedTest {
     }
 
     /**
-     * ИТОГ сортировки 3 методами
-     */
+     *  ИТОГ сортировки 3 методами*/
+
+
     //Bubble Sort Execution Time: -----------23157 milliseconds
     //Selection Sort Execution Time: --------10784 milliseconds
     //Merge Sort Execution Time: ---------------37 milliseconds
